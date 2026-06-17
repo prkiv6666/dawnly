@@ -1,8 +1,9 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { PRODUCT_PATH } from "@/lib/shopify";
 import { Bed, MoonStars, SunGlow } from "./icons";
 
@@ -13,12 +14,28 @@ const TRUST_BADGES = [
 ];
 
 export default function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  // Glow blobs drift at different speeds for a soft parallax depth effect.
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const peachY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const glowScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
+
   return (
-    <section className="relative overflow-hidden">
+    <section ref={ref} className="relative overflow-hidden">
       {/* Warm sunrise backdrop */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-peach/40 via-cream to-cream" />
-      <div className="pointer-events-none absolute -right-24 -top-24 -z-10 h-[460px] w-[460px] rounded-full bg-amber/25 blur-3xl animate-soft-pulse" />
-      <div className="pointer-events-none absolute -left-32 top-40 -z-10 h-[380px] w-[380px] rounded-full bg-peach/40 blur-3xl" />
+      <motion.div
+        style={{ y: glowY, scale: glowScale }}
+        className="pointer-events-none absolute -right-24 -top-24 -z-10 h-[460px] w-[460px] rounded-full bg-amber/25 blur-3xl animate-soft-pulse"
+      />
+      <motion.div
+        style={{ y: peachY }}
+        className="pointer-events-none absolute -left-32 top-40 -z-10 h-[380px] w-[380px] rounded-full bg-peach/40 blur-3xl"
+      />
 
       <div className="container-px grid items-center gap-12 pb-16 pt-12 sm:pt-16 lg:grid-cols-2 lg:gap-8 lg:pb-28 lg:pt-20">
         {/* Copy */}
@@ -27,7 +44,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-medium text-amber-deep shadow-soft ring-1 ring-black/[0.03] backdrop-blur"
+            className="inline-flex items-center gap-2 rounded-full bg-surface/70 px-4 py-1.5 text-xs font-medium text-amber-deep shadow-soft ring-1 ring-black/[0.03] backdrop-blur"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-amber" />
             The warm bedside glow loved by 12,000+ rooms
@@ -80,7 +97,7 @@ export default function Hero() {
                 key={label}
                 className="flex items-center gap-2 text-sm font-medium text-charcoal-soft"
               >
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/70 text-amber-deep shadow-soft ring-1 ring-black/[0.03]">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface/70 text-amber-deep shadow-soft ring-1 ring-black/[0.03]">
                   <Icon className="h-4 w-4" />
                 </span>
                 {label}
@@ -109,7 +126,7 @@ export default function Hero() {
           </div>
 
           {/* Floating rating chip */}
-          <div className="absolute -bottom-4 left-4 flex items-center gap-3 rounded-3xl bg-white/90 px-5 py-3 shadow-soft-lg backdrop-blur sm:left-8">
+          <div className="absolute -bottom-4 left-4 flex items-center gap-3 rounded-3xl bg-surface/90 px-5 py-3 shadow-soft-lg backdrop-blur sm:left-8">
             <div className="flex -space-x-1 text-amber">
               {"★★★★★".split("").map((s, i) => (
                 <span key={i} className="text-sm">

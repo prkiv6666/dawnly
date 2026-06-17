@@ -256,7 +256,7 @@ export default function ProductSection({
                             "rounded-full border px-4 py-2 text-sm font-medium transition-all",
                             active
                               ? "border-charcoal bg-charcoal text-cream"
-                              : "border-black/15 bg-white/60 text-charcoal hover:border-charcoal/40",
+                              : "border-black/15 bg-surface/60 text-charcoal hover:border-charcoal/40",
                           )}
                         >
                           {value}
@@ -269,7 +269,7 @@ export default function ProductSection({
 
             {/* Quantity + actions */}
             <div className="mt-7 flex items-center gap-4">
-              <div className="flex items-center rounded-full border border-black/15 bg-white/60">
+              <div className="flex items-center rounded-full border border-black/15 bg-surface/60">
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -326,7 +326,7 @@ export default function ProductSection({
             )}
 
             {/* Trust row */}
-            <div className="mt-7 grid grid-cols-3 gap-2 rounded-3xl bg-white/60 p-4 ring-1 ring-black/[0.03]">
+            <div className="mt-7 grid grid-cols-3 gap-2 rounded-3xl bg-surface/60 p-4 ring-1 ring-black/[0.03]">
               {TRUST.map(({ Icon, label }) => (
                 <div
                   key={label}
@@ -341,7 +341,7 @@ export default function ProductSection({
             </div>
 
             {/* Accordion tabs */}
-            <div className="mt-8 rounded-4xl bg-white/60 px-6 ring-1 ring-black/[0.03]">
+            <div className="mt-8 rounded-4xl bg-surface/60 px-6 ring-1 ring-black/[0.03]">
               <Accordion items={accordionItems} defaultOpen={0} />
             </div>
           </div>

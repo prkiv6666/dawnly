@@ -27,7 +27,7 @@ export default function CartPage() {
         )}
 
         {isEmpty ? (
-          <div className="mt-10 flex flex-col items-center justify-center rounded-5xl bg-white/60 px-6 py-20 text-center ring-1 ring-black/[0.03]">
+          <div className="mt-10 flex flex-col items-center justify-center rounded-5xl bg-surface/60 px-6 py-20 text-center ring-1 ring-black/[0.03]">
             <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-cream text-amber-deep shadow-soft">
               <Bag className="h-7 w-7" />
             </span>
@@ -80,7 +80,7 @@ export default function CartPage() {
                     </div>
 
                     <div className="mt-auto flex items-center justify-between pt-3">
-                      <div className="flex items-center rounded-full border border-black/15 bg-white/70">
+                      <div className="flex items-center rounded-full border border-black/15 bg-surface/70">
                         <button
                           type="button"
                           onClick={() => updateItem(line.id, line.quantity - 1)}

@@ -73,7 +73,7 @@ export default function CartDrawer() {
             {/* Body */}
             {isEmpty ? (
               <div className="flex flex-1 flex-col items-center justify-center px-6 text-center">
-                <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/70 text-amber-deep shadow-soft">
+                <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-surface/70 text-amber-deep shadow-soft">
                   <Bag className="h-7 w-7" />
                 </span>
                 <p className="mt-5 font-serif text-xl text-charcoal">
@@ -133,7 +133,7 @@ export default function CartDrawer() {
                           </div>
 
                           <div className="mt-auto flex items-center justify-between pt-2">
-                            <div className="flex items-center rounded-full border border-black/15 bg-white/70">
+                            <div className="flex items-center rounded-full border border-black/15 bg-surface/70">
                               <button
                                 type="button"
                                 onClick={() =>

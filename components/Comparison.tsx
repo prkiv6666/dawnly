@@ -21,7 +21,7 @@ export default function Comparison() {
         </Reveal>
 
         <Reveal className="mx-auto mt-12 max-w-3xl">
-          <div className="overflow-hidden rounded-4xl bg-white/70 shadow-soft ring-1 ring-black/[0.03]">
+          <div className="overflow-hidden rounded-4xl bg-surface/70 shadow-soft ring-1 ring-black/[0.03]">
             {/* Header row */}
             <div className="grid grid-cols-[1.4fr_1fr_1fr] items-center gap-2 border-b border-black/[0.06] bg-cream/60 px-5 py-5 sm:px-8">
               <span className="text-sm font-semibold text-charcoal-soft">

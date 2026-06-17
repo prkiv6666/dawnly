@@ -5,6 +5,7 @@ import Reviews from "@/components/Reviews";
 import FAQ from "@/components/FAQ";
 import Comparison from "@/components/Comparison";
 import FinalCTA from "@/components/FinalCTA";
+import StickyBuyBar from "@/components/StickyBuyBar";
 import { getProductByHandle } from "@/lib/shopify";
 import { formatMoney } from "@/lib/utils";
 
@@ -81,6 +82,7 @@ export default async function ProductPage({ params }: PageProps) {
       <Reviews />
       <FAQ />
       <FinalCTA />
+      <StickyBuyBar product={product} />
     </>
   );
 }

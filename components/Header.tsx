@@ -4,9 +4,26 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import { useTheme } from "@/context/ThemeContext";
 import { cn } from "@/lib/utils";
 import { PRODUCT_PATH } from "@/lib/shopify";
-import { Bag, Close, Menu } from "./icons";
+import { Bag, Close, Menu, MoonStars, SunGlow } from "./icons";
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="inline-flex h-10 w-10 items-center justify-center rounded-full text-charcoal transition-colors hover:bg-black/[0.05] dark:hover:bg-surface/[0.06]"
+      aria-label={isDark ? "Switch to day mode" : "Switch to night mode"}
+      title={isDark ? "Day mode" : "Night mode"}
+    >
+      {isDark ? <SunGlow className="h-5 w-5" /> : <MoonStars className="h-5 w-5" />}
+    </button>
+  );
+}
 
 const NAV_LINKS = [
   { label: "Benefits", href: "/#benefits" },
@@ -69,6 +86,7 @@ export default function Header() {
 
         {/* Right side actions */}
         <div className="flex items-center gap-2 sm:gap-3">
+          <ThemeToggle />
           <button
             type="button"
             onClick={openCart}
@@ -138,7 +156,7 @@ export default function Header() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="rounded-2xl px-4 py-3.5 text-lg font-medium text-charcoal transition-colors hover:bg-white/70"
+                    className="rounded-2xl px-4 py-3.5 text-lg font-medium text-charcoal transition-colors hover:bg-surface/70"
                   >
                     {link.label}
                   </Link>

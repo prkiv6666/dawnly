@@ -85,7 +85,7 @@ export default function Contact() {
                       onChange={(e) =>
                         setForm({ ...form, message: e.target.value })
                       }
-                      className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-charcoal placeholder:text-charcoal/40 focus:border-amber focus:outline-none focus:ring-2 focus:ring-amber/20"
+                      className="w-full resize-none rounded-2xl border border-black/10 bg-surface px-4 py-3 text-sm text-charcoal placeholder:text-charcoal/40 focus:border-amber focus:outline-none focus:ring-2 focus:ring-amber/20"
                       placeholder="How can we help?"
                     />
                   </div>
@@ -124,7 +124,7 @@ function Field({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-charcoal placeholder:text-charcoal/40 focus:border-amber focus:outline-none focus:ring-2 focus:ring-amber/20"
+        className="w-full rounded-2xl border border-black/10 bg-surface px-4 py-3 text-sm text-charcoal placeholder:text-charcoal/40 focus:border-amber focus:outline-none focus:ring-2 focus:ring-amber/20"
       />
     </div>
   );

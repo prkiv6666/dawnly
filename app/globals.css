@@ -3,8 +3,33 @@
 @tailwind utilities;
 
 :root {
-  --background: #fbf6ef;
-  --foreground: #2b2622;
+  /* Daylight palette — channels are "R G B" so Tailwind alpha modifiers work. */
+  --c-cream: 251 246 239;
+  --c-warm-white: 254 251 246;
+  --c-beige: 239 227 211;
+  --c-sand: 231 214 192;
+  --c-surface: 255 255 255;
+  --c-charcoal: 43 38 34;
+  --c-charcoal-soft: 74 66 59;
+  --c-soft-brown: 154 107 67;
+
+  --background: rgb(var(--c-cream));
+  --foreground: rgb(var(--c-charcoal));
+}
+
+.dark {
+  /* After-dark palette — paper goes deep-warm, ink goes soft-light. */
+  --c-cream: 22 19 17;
+  --c-warm-white: 30 26 23;
+  --c-beige: 44 38 33;
+  --c-sand: 56 48 42;
+  --c-surface: 38 33 29;
+  --c-charcoal: 245 238 229;
+  --c-charcoal-soft: 198 187 175;
+  --c-soft-brown: 206 156 112;
+
+  --background: rgb(var(--c-cream));
+  --foreground: rgb(var(--c-charcoal));
 }
 
 @layer base {
@@ -20,11 +45,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   ::selection {
     background-color: rgba(232, 155, 92, 0.28);
-    color: #2b2622;
+    color: inherit;
   }
 
   /* Respect reduced-motion preferences. */
@@ -68,13 +94,13 @@
   }
 
   .btn-outline {
-    @apply btn border border-charcoal/15 bg-white/60 text-charcoal
-      backdrop-blur hover:border-charcoal/30 hover:bg-white active:scale-[0.98];
+    @apply btn border border-charcoal/15 bg-surface/60 text-charcoal
+      backdrop-blur hover:border-charcoal/30 hover:bg-surface active:scale-[0.98];
   }
 
   .card {
-    @apply rounded-4xl bg-white/70 p-7 shadow-soft backdrop-blur-sm
-      ring-1 ring-black/[0.03];
+    @apply rounded-4xl bg-surface/70 p-7 shadow-soft backdrop-blur-sm
+      ring-1 ring-black/[0.03] dark:ring-white/[0.06];
   }
 
   .eyebrow {
@@ -89,4 +115,29 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Soft fade on the edges of the press marquee. */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+}
+
+/* Pause looping animations when the visitor prefers reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none !important;
+  }
 }
