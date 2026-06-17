@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { PRODUCT_PATH } from "@/lib/shopify";
 import { Bed, MoonStars, SunGlow } from "./icons";
 
 const TRUST_BADGES = [
@@ -59,7 +60,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.18 }}
             className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start"
           >
-            <Link href="/product/dawnly" className="btn-amber w-full sm:w-auto">
+            <Link href={PRODUCT_PATH} className="btn-amber w-full sm:w-auto">
               Shop Dawnly
             </Link>
             <Link href="/#benefits" className="btn-outline w-full sm:w-auto">

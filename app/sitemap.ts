@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { PRODUCT_PATH } from "@/lib/shopify";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://dawnly.shop";
@@ -7,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const routes = [
     "",
-    "/product/dawnly",
+    PRODUCT_PATH,
     "/cart",
     "/policies/shipping",
     "/policies/returns",

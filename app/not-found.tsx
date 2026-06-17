@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PRODUCT_PATH } from "@/lib/shopify";
 
 export default function NotFound() {
   return (
@@ -15,7 +16,7 @@ export default function NotFound() {
         <Link href="/" className="btn-primary">
           Back home
         </Link>
-        <Link href="/product/dawnly" className="btn-outline">
+        <Link href={PRODUCT_PATH} className="btn-outline">
           Shop Dawnly
         </Link>
       </div>

@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { PRODUCT_PATH } from "@/lib/shopify";
 import { ArrowRight, Instagram, Pinterest, TikTok } from "./icons";
 
 const SHOP_LINKS = [
-  { label: "Shop Dawnly", href: "/product/dawnly" },
+  { label: "Shop Dawnly", href: PRODUCT_PATH },
   { label: "Benefits", href: "/#benefits" },
   { label: "Reviews", href: "/#reviews" },
   { label: "FAQ", href: "/#faq" },

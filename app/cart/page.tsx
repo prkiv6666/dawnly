@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { formatMoney } from "@/lib/utils";
+import { PRODUCT_PATH } from "@/lib/shopify";
 import { Bag, Lock, Minus, Plus } from "@/components/icons";
 
 export default function CartPage() {
@@ -36,7 +37,7 @@ export default function CartPage() {
             <p className="mt-1 text-charcoal-soft">
               Bring home the warm glow that thousands fall asleep to.
             </p>
-            <Link href="/product/dawnly" className="btn-amber mt-7">
+            <Link href={PRODUCT_PATH} className="btn-amber mt-7">
               Shop Dawnly
             </Link>
           </div>

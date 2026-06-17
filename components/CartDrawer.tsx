@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import { formatMoney } from "@/lib/utils";
+import { PRODUCT_PATH } from "@/lib/shopify";
 import { Bag, Close, Lock, Minus, Plus } from "./icons";
 
 export default function CartDrawer() {
@@ -82,7 +83,7 @@ export default function CartDrawer() {
                   Add a little warmth to your evenings.
                 </p>
                 <Link
-                  href="/product/dawnly"
+                  href={PRODUCT_PATH}
                   onClick={closeCart}
                   className="btn-amber mt-6"
                 >

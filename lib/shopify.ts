@@ -21,6 +21,9 @@ const ACCESS_TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN?.tr
 export const PRODUCT_HANDLE =
   process.env.NEXT_PUBLIC_SHOPIFY_PRODUCT_HANDLE?.trim() || "dawnly";
 
+/** Canonical internal link to the product page (uses the configured handle). */
+export const PRODUCT_PATH = `/product/${PRODUCT_HANDLE}`;
+
 /** Whether real Shopify credentials are present. */
 export const isShopifyConfigured = Boolean(STORE_DOMAIN && ACCESS_TOKEN);
 

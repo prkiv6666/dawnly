@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PRODUCT_PATH } from "@/lib/shopify";
 import Reveal from "./Reveal";
 
 export default function FinalCTA() {
@@ -17,7 +18,7 @@ export default function FinalCTA() {
                 Bring home the warm glow that thousands fall asleep to.
               </p>
               <Link
-                href="/product/dawnly"
+                href={PRODUCT_PATH}
                 className="btn mt-8 bg-charcoal text-cream shadow-soft-lg hover:bg-charcoal-soft"
               >
                 Shop Dawnly now

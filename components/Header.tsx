@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
+import { PRODUCT_PATH } from "@/lib/shopify";
 import { Bag, Close, Menu } from "./icons";
 
 const NAV_LINKS = [
@@ -82,7 +83,7 @@ export default function Header() {
             )}
           </button>
 
-          <Link href="/product/dawnly" className="hidden btn-primary sm:inline-flex">
+          <Link href={PRODUCT_PATH} className="hidden btn-primary sm:inline-flex">
             Shop now
           </Link>
 
@@ -145,7 +146,7 @@ export default function Header() {
               </nav>
 
               <Link
-                href="/product/dawnly"
+                href={PRODUCT_PATH}
                 onClick={() => setMenuOpen(false)}
                 className="btn-primary mt-auto w-full"
               >
