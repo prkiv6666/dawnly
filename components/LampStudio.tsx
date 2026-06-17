@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -38,21 +39,10 @@ export default function LampStudio() {
   const w = warmth / 100;
 
   const glowColor = useMemo(() => mix(WARM_DEEP, WARM_SOFT, w), [w]);
-  const coreColor = useMemo(
-    () => mix(WARM_DEEP, [255, 252, 245], Math.min(1, w + 0.25)),
-    [w],
-  );
 
   const activePreset = PRESETS.find(
     (p) => Math.abs(p.brightness - brightness) < 4 && Math.abs(p.warmth - warmth) < 4,
   )?.label;
-
-  // Stage darkens as the lamp dims, so the glow reads against it.
-  const stageBg = `radial-gradient(120% 90% at 50% 78%, ${mix(
-    [38, 31, 27],
-    glowColor.match(/\d+/g)!.map(Number),
-    b * 0.55,
-  )} 0%, rgb(26, 21, 18) 70%)`;
 
   return (
     <section id="try-it" className="section-pad">
@@ -69,62 +59,50 @@ export default function LampStudio() {
         </Reveal>
 
         <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-2">
-          {/* Lamp stage */}
+          {/* Lamp stage — the real product photo, dimmed and warmed live. */}
           <Reveal className="overflow-hidden rounded-5xl shadow-soft-lg ring-1 ring-black/[0.04]">
-            <div
-              className="relative flex h-full min-h-[360px] items-end justify-center p-10 transition-[background] duration-500 sm:min-h-[440px]"
-              style={{ background: stageBg }}
-            >
-              {/* Ambient glow halo — egg-shaped so it hugs the lamp instead
-                  of reading as a ball. */}
+            <div className="relative h-full min-h-[360px] bg-[rgb(20,16,14)] sm:min-h-[440px]">
+              {/* Real product photo, brightened/cooled by the sliders. */}
               <motion.div
-                aria-hidden
-                className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 blur-2xl"
+                className="absolute inset-0"
                 animate={{
-                  width: 150 + b * 170,
-                  height: 200 + b * 230,
-                  opacity: 0.22 + b * 0.5,
+                  filter: `brightness(${0.42 + b * 0.85}) contrast(1.03) saturate(${
+                    0.85 + (1 - w) * 0.55
+                  })`,
                 }}
                 transition={{ type: "spring", stiffness: 80, damping: 18 }}
+              >
+                <Image
+                  src="/images/product-nightstand-dark.png"
+                  alt="Dawnly lamp glowing warmly on a nightstand in a dark bedroom"
+                  fill
+                  sizes="(max-width: 1024px) 90vw, 45vw"
+                  className="object-cover"
+                />
+              </motion.div>
+
+              {/* Warm color wash for the temperature control. */}
+              <motion.div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+                animate={{ opacity: 0.2 + b * 0.45 }}
+                transition={{ type: "spring", stiffness: 80, damping: 18 }}
+                style={{ backgroundColor: glowColor }}
+              />
+
+              {/* Glow bloom radiating from the lamp as brightness rises. */}
+              <motion.div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 mix-blend-screen"
+                animate={{ opacity: 0.15 + b * 0.7 }}
+                transition={{ type: "spring", stiffness: 80, damping: 18 }}
                 style={{
-                  backgroundColor: glowColor,
-                  borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                  background: `radial-gradient(38% 42% at 50% 46%, ${glowColor} 0%, transparent 68%)`,
                 }}
               />
 
-              {/* The egg lamp */}
-              <div className="relative mb-6 flex flex-col items-center">
-                <motion.div
-                  className="relative"
-                  animate={{
-                    width: 116,
-                    height: 168,
-                    boxShadow: `0 0 ${24 + b * 70}px ${2 + b * 12}px ${glowColor}`,
-                    opacity: 0.6 + b * 0.4,
-                  }}
-                  transition={{ type: "spring", stiffness: 90, damping: 16 }}
-                  style={{
-                    // Classic egg: a touch pointed at the top, round at the base.
-                    borderRadius: "50% 50% 50% 50% / 64% 64% 36% 36%",
-                    background: `radial-gradient(58% 60% at 50% 42%, ${coreColor} 0%, ${glowColor} 52%, ${mix(
-                      glowColor.match(/\d+/g)!.map(Number),
-                      [120, 70, 40],
-                      0.5,
-                    )} 100%)`,
-                  }}
-                >
-                  {/* Soft top highlight to read as a glossy shell. */}
-                  <span
-                    aria-hidden
-                    className="absolute left-1/2 top-[14%] h-10 w-7 -translate-x-1/2 rounded-full bg-white/35 blur-md"
-                  />
-                </motion.div>
-                {/* Base */}
-                <div className="mt-[-5px] h-3 w-14 rounded-b-2xl rounded-t-md bg-black/40 blur-[1px]" />
-              </div>
-
               {/* Readout */}
-              <div className="absolute left-5 top-5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
+              <div className="absolute left-5 top-5 rounded-full bg-black/30 px-3 py-1 text-[11px] font-medium tracking-wide text-white/85 backdrop-blur">
                 {brightness === 0 ? "Off" : `${Math.round(brightness)}% glow`}
               </div>
             </div>
