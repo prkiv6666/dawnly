@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #fbf6ef;
+  --foreground: #2b2622;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "ss01", "cv01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: rgba(232, 155, 92, 0.28);
+    color: #2b2622;
+  }
+
+  /* Respect reduced-motion preferences. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-px {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .section-pad {
+    @apply py-16 sm:py-24 lg:py-28;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5
+      text-sm font-semibold tracking-wide transition-all duration-300
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-amber/50
+      focus-visible:ring-offset-2 focus-visible:ring-offset-cream
+      disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply btn bg-charcoal text-cream shadow-soft hover:bg-charcoal-soft
+      hover:shadow-soft-lg active:scale-[0.98];
+  }
+
+  .btn-amber {
+    @apply btn bg-amber text-white shadow-soft hover:bg-amber-deep
+      hover:shadow-soft-lg active:scale-[0.98];
+  }
+
+  .btn-outline {
+    @apply btn border border-charcoal/15 bg-white/60 text-charcoal
+      backdrop-blur hover:border-charcoal/30 hover:bg-white active:scale-[0.98];
+  }
+
+  .card {
+    @apply rounded-4xl bg-white/70 p-7 shadow-soft backdrop-blur-sm
+      ring-1 ring-black/[0.03];
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.22em] text-amber-deep;
+  }
+}
+
+/* Hide scrollbars on horizontal scroll rails while keeping scroll. */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
