@@ -16,7 +16,8 @@ export default function DiscountPopup() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Decide whether to show: skip if the visitor already saw or claimed it.
@@ -74,17 +75,34 @@ export default function DiscountPopup() {
     if (!subscribed) remember("dismissed");
   }
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError(true);
+      setError("Please enter a valid email address.");
       return;
     }
-    // Wire this up to Shopify / Klaviyo / your ESP to issue a real code.
-    setError(false);
-    setSubscribed(true);
-    setEmail("");
-    remember("subscribed");
+
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        setError(data?.error ?? "Could not subscribe right now. Please try again.");
+        return;
+      }
+      setSubscribed(true);
+      setEmail("");
+      remember("subscribed");
+    } catch {
+      setError("Could not subscribe right now. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   async function copyCode() {
@@ -203,11 +221,11 @@ export default function DiscountPopup() {
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
-                        if (error) setError(false);
+                        if (error) setError(null);
                       }}
                       placeholder="you@email.com"
                       aria-label="Email address"
-                      aria-invalid={error}
+                      aria-invalid={Boolean(error)}
                       className={
                         "w-full rounded-2xl border bg-surface px-4 py-3.5 text-sm text-charcoal placeholder:text-charcoal/40 focus:outline-none focus:ring-2 " +
                         (error
@@ -216,12 +234,14 @@ export default function DiscountPopup() {
                       }
                     />
                     {error && (
-                      <p className="text-xs font-medium text-red-500">
-                        Please enter a valid email address.
-                      </p>
+                      <p className="text-xs font-medium text-red-500">{error}</p>
                     )}
-                    <button type="submit" className="btn-amber w-full">
-                      Reveal my 10% code
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="btn-amber w-full"
+                    >
+                      {submitting ? "Subscribing…" : "Reveal my 10% code"}
                     </button>
                   </form>
 
