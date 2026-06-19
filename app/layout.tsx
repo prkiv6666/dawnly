@@ -9,6 +9,7 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import CartDrawer from "@/components/CartDrawer";
 import ScrollProgress from "@/components/ScrollProgress";
 import BackToTop from "@/components/BackToTop";
+import DiscountPopup from "@/components/DiscountPopup";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -102,6 +103,7 @@ export default function RootLayout({
             <Footer />
             <CartDrawer />
             <BackToTop />
+            <DiscountPopup />
           </CartProvider>
         </ThemeProvider>
       </body>
